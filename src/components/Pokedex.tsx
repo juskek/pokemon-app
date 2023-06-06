@@ -25,7 +25,12 @@ export default function Pokedex({ navigation }: { navigation: any }) {
                         style={styles.touchable}
                         activeOpacity={0.6}
                         underlayColor="#DDDDDD"
-                        onPress={() => navigation.navigate('PokemonDetails')}>
+                        onPress={() => navigation.navigate('PokemonDetails',
+                            {
+                                name: item.name,
+                                uri: item.url,
+                            }
+                        )}>
                         <Item title={item.name} />
                     </TouchableHighlight>
 
