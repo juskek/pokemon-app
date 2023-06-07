@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text} from 'react-native';
 
 
-export function PokemonDetails({ route, navigation }: { route: any, navigation: any }) {
+export function PokemonDetails({ route }: { route: any, navigation: any }) {
     const { name, uri } = route.params;
 
     return (

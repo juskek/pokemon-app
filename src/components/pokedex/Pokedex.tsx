@@ -27,7 +27,7 @@ export function Pokedex({ navigation }: { navigation: any }) {
         isFetching,
         isFetchingNextPage,
         status,
-    } = useInfiniteQuery<PokemonUrlQueryData, String>({
+    } = useInfiniteQuery<PokemonUrlQueryData, string>({
         queryKey: ['results'],
         queryFn: fetchProjects,
         getNextPageParam: (lastPage, pages) => {
