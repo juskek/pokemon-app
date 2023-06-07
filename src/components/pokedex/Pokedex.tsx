@@ -1,17 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
-import { ActivityIndicator, Button, SafeAreaView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { ActivityIndicator, SafeAreaView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { FlatList } from 'react-native';
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { Fragment } from 'react';
 import queryString from 'query-string';
-
-
-type Pokemon = { name: string, url: string };
-
-type QueryData = { count: number, next: string, previous: string, results: Pokemon[] };
-
-
-
 
 type ItemProps = { title: string };
 
@@ -21,11 +11,10 @@ const Item = ({ title }: ItemProps) => (
     </View>
 );
 
-export default function Pokedex({ navigation }: { navigation: any }) {
-    const pokemonList = require("../../assets/kanto.json");
+export function Pokedex({ navigation }: { navigation: any }) {
 
     const fetchProjects = async ({ pageParam = 0 }) => {
-        const res = await fetch('https://pokeapi.co/api/v2/pokemon/?offset=' + pageParam + '&limit=20')
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${pageParam}&limit=20`)
         return res.json()
     }
 
@@ -38,13 +27,12 @@ export default function Pokedex({ navigation }: { navigation: any }) {
         isFetching,
         isFetchingNextPage,
         status,
-    } = useInfiniteQuery<QueryData, String>({
+    } = useInfiniteQuery<PokemonUrlQueryData, String>({
         queryKey: ['results'],
         queryFn: fetchProjects,
         getNextPageParam: (lastPage, pages) => {
             const uri = lastPage.next;
             const parsedParams = queryString.parseUrl(uri).query;
-            // Extract the offset value
             const offset = parsedParams.offset;
             return offset;
         },
