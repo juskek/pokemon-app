@@ -1,9 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { ActivityIndicator, Button, SafeAreaView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { FlatList } from 'react-native';
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { Fragment } from 'react';
+import queryString from 'query-string';
 
 
-const pokemonList = require("../../assets/kanto.json");
+type Pokemon = { name: string, url: string };
+
+type QueryData = { count: number, next: string, previous: string, results: Pokemon[] };
+
+
+
 
 type ItemProps = { title: string };
 
@@ -14,33 +22,64 @@ const Item = ({ title }: ItemProps) => (
 );
 
 export default function Pokedex({ navigation }: { navigation: any }) {
-    return (
-        <View style={styles.container}>
-            <Text>Open up App.tsx to start working on your app!</Text>
+    const pokemonList = require("../../assets/kanto.json");
 
-            <FlatList
-                data={pokemonList}
-                renderItem={({ item }) =>
-                    <TouchableHighlight
-                        style={styles.touchable}
-                        activeOpacity={0.6}
-                        underlayColor="#DDDDDD"
-                        onPress={() => navigation.navigate('PokemonDetails',
-                            {
-                                name: item.name,
-                                uri: item.url,
-                            }
-                        )}>
-                        <Item title={item.name} />
-                    </TouchableHighlight>
+    const fetchProjects = async ({ pageParam = 0 }) => {
+        const res = await fetch('https://pokeapi.co/api/v2/pokemon/?offset=' + pageParam + '&limit=20')
+        return res.json()
+    }
 
-                }
-                keyExtractor={item => item.id}
-            />
 
-            <StatusBar style="auto" />
-        </View>
-    );
+    const {
+        data,
+        error,
+        fetchNextPage,
+        hasNextPage,
+        isFetching,
+        isFetchingNextPage,
+        status,
+    } = useInfiniteQuery<QueryData, String>({
+        queryKey: ['results'],
+        queryFn: fetchProjects,
+        getNextPageParam: (lastPage, pages) => {
+            const uri = lastPage.next;
+            const parsedParams = queryString.parseUrl(uri).query;
+            // Extract the offset value
+            const offset = parsedParams.offset;
+            return offset;
+        },
+    })
+
+    return <SafeAreaView style={styles.container}>
+        {status === 'loading' ? (
+            <Text>Loading...</Text>
+        ) : status === 'error' ? (
+            <Text>Error</Text>
+        ) : (
+            <View>
+                <FlatList
+                    data={data.pages.flatMap(page => page.results)}
+                    renderItem={({ item }) =>
+                        <TouchableHighlight
+                            style={styles.touchable}
+                            activeOpacity={0.6}
+                            underlayColor="#DDDDDD"
+                            onPress={() => navigation.navigate('Pokemon Details',
+                                {
+                                    name: item.name,
+                                    uri: item.url,
+                                }
+                            )}>
+                            <Item title={item.name} />
+                        </TouchableHighlight>
+                    }
+                    onEndReached={() => fetchNextPage()}
+                    keyExtractor={item => item.url}
+                />
+                {hasNextPage && isFetchingNextPage ? <ActivityIndicator /> : null}
+            </View>
+        )}
+    </SafeAreaView>
 }
 
 const styles = StyleSheet.create({

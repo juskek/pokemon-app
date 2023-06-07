@@ -12,7 +12,7 @@ export default function Navigator()  {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Pokedex" component={Pokedex} />
-        <Stack.Screen name="PokemonDetails" component={PokemonDetails} />
+        <Stack.Screen name="Pokemon Details" component={PokemonDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );
