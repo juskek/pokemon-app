@@ -6,6 +6,7 @@ import {
 
 const queryClient = new QueryClient()
 
+// eslint-disable-next-line no-restricted-syntax
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>

@@ -2,6 +2,7 @@ import { ActivityIndicator, SafeAreaView, StyleSheet, Text, TouchableHighlight, 
 import { FlatList } from 'react-native';
 import { useInfiniteQuery } from '@tanstack/react-query'
 import queryString from 'query-string';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 type ItemProps = { title: string };
 
@@ -11,7 +12,10 @@ const Item = ({ title }: ItemProps) => (
     </View>
 );
 
-export function Pokedex({ navigation }: { navigation: any }) {
+type Props = NativeStackScreenProps<RootStackParamList, 'PokedexScreen'>;
+
+
+export function PokedexScreen({ route, navigation }: Props) {
 
     const fetchProjects = async ({ pageParam = 0 }) => {
         const res = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${pageParam}&limit=20`)
@@ -27,7 +31,7 @@ export function Pokedex({ navigation }: { navigation: any }) {
         isFetching,
         isFetchingNextPage,
         status,
-    } = useInfiniteQuery<PokemonUrlQueryData, String>({
+    } = useInfiniteQuery<PokemonUrlQueryData, string>({
         queryKey: ['results'],
         queryFn: fetchProjects,
         getNextPageParam: (lastPage, pages) => {
@@ -52,7 +56,7 @@ export function Pokedex({ navigation }: { navigation: any }) {
                             style={styles.touchable}
                             activeOpacity={0.6}
                             underlayColor="#DDDDDD"
-                            onPress={() => navigation.navigate('Pokemon Details',
+                            onPress={() => navigation.navigate('PokemonDetailsScreen',
                                 {
                                     name: item.name,
                                     uri: item.url,
@@ -90,4 +94,3 @@ const styles = StyleSheet.create({
     },
 
 });
-
