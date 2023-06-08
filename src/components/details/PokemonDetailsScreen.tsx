@@ -14,8 +14,6 @@ type PokemonDetailsScreenRouteProps = {
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PokemonDetailsScreen'>;
 
-
-
 export function PokemonDetailsScreen({ route }: Props) {
     const { name, uri } = route.params;
 
@@ -45,7 +43,7 @@ export function PokemonDetailsScreen({ route }: Props) {
                     <Text>Moves: {data.moves.map((move) => move.move.name).join(', ')}</Text>
                 </View>
             )}
-            
+
             <StatusBar style="auto" />
         </SafeAreaView>
     );

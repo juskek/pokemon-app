@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Pokedex } from '../components/pokedex/Pokedex';
+import { PokedexScreen } from '../components/pokedex/PokedexScreen';
 import { PokemonDetailsScreen } from '../components/details/PokemonDetailsScreen';
 
 
@@ -12,7 +12,11 @@ export function Navigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Pokedex" component={Pokedex} />
+        <Stack.Screen 
+          name="PokedexScreen" 
+          component={PokedexScreen} 
+          options={{ title: 'Pokedex' }}
+          />
         <Stack.Screen
           name="PokemonDetailsScreen"
           component={PokemonDetailsScreen}
