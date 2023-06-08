@@ -30,6 +30,6 @@ module.exports = {
         "no-restricted-syntax": ["error", {
             "selector": "ExportDefaultDeclaration",
             "message": "Prefer named exports"
-        }]
+        }],
     }
 }

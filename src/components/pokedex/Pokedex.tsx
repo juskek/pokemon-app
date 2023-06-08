@@ -52,7 +52,7 @@ export function Pokedex({ navigation }: { navigation: any }) {
                             style={styles.touchable}
                             activeOpacity={0.6}
                             underlayColor="#DDDDDD"
-                            onPress={() => navigation.navigate('Pokemon Details',
+                            onPress={() => navigation.navigate('PokemonDetailsScreen',
                                 {
                                     name: item.name,
                                     uri: item.url,
