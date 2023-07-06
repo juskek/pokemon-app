@@ -33,7 +33,7 @@ export function PokemonDetailsScreen({ route }: Props) {
             {!isLoading && !data && <Text>No data</Text>}
 
             {!isLoading && data && (
-                <View>
+                <View style={styles.card}>
                     <Text>Height: {data.height}</Text>
                     <Text>Weight: {data.weight}</Text>
                     <Text>Abilities: {data.abilities.map((ability) => ability.ability.name).join(', ')}</Text>
@@ -51,6 +51,22 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    card: {
+        padding: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#f9c2ff',
+        marginVertical: 8,
+        marginHorizontal: 16,
+        borderRadius: 10, 
+        shadowColor: '#000000', 
+        shadowOpacity: 0.2, 
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        }, 
+        shadowRadius: 4, 
     },
 });
 

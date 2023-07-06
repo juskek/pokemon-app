@@ -53,7 +53,7 @@ export function PokedexScreen({ route, navigation }: Props) {
                     data={data.pages.flatMap(page => page.results)}
                     renderItem={({ item }) =>
                         <TouchableHighlight
-                            style={styles.touchable}
+                            style={styles.card}
                             activeOpacity={0.6}
                             underlayColor="#DDDDDD"
                             onPress={() => navigation.navigate('PokemonDetailsScreen',
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     item: {
         padding: 20,
     },
-    touchable: {
+    card: {
         backgroundColor: '#f9c2ff',
         marginVertical: 8,
         marginHorizontal: 16,
