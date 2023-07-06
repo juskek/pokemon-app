@@ -88,9 +88,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#f9c2ff',
         marginVertical: 8,
         marginHorizontal: 16,
+        borderRadius: 10, 
+        shadowColor: '#000000', 
+        shadowOpacity: 0.2, 
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        }, 
+        shadowRadius: 4, 
     },
     title: {
         fontSize: 32,
+        textAlign: 'center', 
     },
 
 });
