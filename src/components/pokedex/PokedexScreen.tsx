@@ -10,6 +10,7 @@ import {
 import { useInfiniteQuery } from "@tanstack/react-query";
 import queryString from "query-string";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { pokemonDataJsonParser } from "./pokemonDataJsonParser";
 
 type ItemProps = { title: string };
 
@@ -26,7 +27,7 @@ export function PokedexScreen({ route, navigation }: Props) {
         const res = await fetch(
             `https://pokeapi.co/api/v2/pokemon/?offset=${pageParam}&limit=20`,
         );
-        return res.json();
+        return pokemonDataJsonParser(res);
     };
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
