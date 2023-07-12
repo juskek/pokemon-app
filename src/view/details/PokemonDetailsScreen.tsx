@@ -8,21 +8,14 @@ import {
 } from "react-native";
 import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { useQuery } from "@tanstack/react-query";
+import { usePokemonDetailsScreen } from "./usePokemonDetailsScreen";
 
 type Props = NativeStackScreenProps<RootStackParamList, "PokemonDetailsScreen">;
 
 export function PokemonDetailsScreen({ route }: Props) {
     const { uri } = route.params;
 
-    const fetchDetails = async () => {
-        const response = await fetch(uri);
-        return await response.json();
-    };
-    const { data, isLoading } = useQuery<PokemonStats>(
-        ["useQueryPokemonDetailsScreen"],
-        fetchDetails,
-    );
+    const { data, isLoading } = usePokemonDetailsScreen(uri);
 
     return (
         <SafeAreaView style={styles.container}>
