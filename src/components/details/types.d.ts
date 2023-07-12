@@ -1,11 +1,11 @@
 type PokemonStats = {
-    name: string,
-    url: string,
-    height: number,
-    weight: number,
-    abilities: Ability[],
-    moves: Move[],
-}
+    name: string;
+    url: string;
+    height: number;
+    weight: number;
+    abilities: Ability[];
+    moves: Move[];
+};
 
 interface Ability {
     ability: {
@@ -16,8 +16,7 @@ interface Ability {
 
 interface Move {
     move: {
-      name: string;
-      url: string;
+        name: string;
+        url: string;
     };
-  }
-  
+}
