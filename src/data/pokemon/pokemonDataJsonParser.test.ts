@@ -1,4 +1,4 @@
-import { pokemonDataJsonParser } from "../pokemonDataJsonParser";
+import { pokemonDataJsonParser } from "./pokemonDataJsonParser";
 
 describe("pokemonDataJsonParser", () => {
     it("should parse JSON response correctly", async () => {

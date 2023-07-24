@@ -1,13 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
+import { IPokemonRepository } from "../../data/pokemon/IPokemonRepository";
 
 export const usePokemonDetailsScreen = (pokemonUri: string) => {
-    const fetchDetails = async () => {
-        const response = await fetch(pokemonUri);
-        return await response.json();
-    };
     const { data, isLoading } = useQuery<PokemonStats>(
         ["useQueryPokemonDetailsScreen"],
-        fetchDetails,
+        async () =>
+            await IPokemonRepository.instance.getPokemonDetails(pokemonUri),
     );
     return {
         data,
