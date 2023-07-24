@@ -1,10 +1,25 @@
 import { PokemonRepository } from "./PokemonRepository";
+import { TestPokemonRepository } from "./TestPokemonRepository";
 
 export abstract class IPokemonRepository {
     private static _instance: IPokemonRepository | null = null;
     static get instance(): IPokemonRepository {
         if (!this._instance) {
-            this._instance = new PokemonRepository();
+            switch (process.env.NODE_ENV) {
+                case "development":
+                    this._instance = new PokemonRepository();
+                    break;
+                case "production":
+                    this._instance = new PokemonRepository();
+                    break;
+                case "test":
+                    this._instance = new TestPokemonRepository();
+                    break;
+                default:
+                    throw new Error(
+                        `Unknown environment: ${process.env.NODE_ENV}`,
+                    );
+            }
         }
         return this._instance;
     }
