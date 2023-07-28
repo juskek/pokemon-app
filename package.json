@@ -16,7 +16,8 @@
     },
     "transformIgnorePatterns": [
       "/node_modules/(?!query-string)/"
-    ]
+    ],
+    "testPathIgnorePatterns": ["/e2e/"]
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.6",
