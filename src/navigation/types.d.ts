@@ -1,4 +1,4 @@
 type RootStackParamList = {
-    PokedexScreen: {undefined};
-    PokemonDetailsScreen: { name: string, uri: string };
-  };
+    PokedexScreen: { undefined };
+    PokemonDetailsScreen: { name: string; uri: string };
+};
