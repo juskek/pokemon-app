@@ -3,20 +3,12 @@ import {
     SafeAreaView,
     StyleSheet,
     Text,
-    TouchableHighlight,
     View,
     FlatList,
 } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { usePokedexScreen } from "./usePokedexScreen";
-
-type ItemProps = { title: string };
-
-const Item = ({ title }: ItemProps) => (
-    <View style={styles.item}>
-        <Text style={styles.title}>{title}</Text>
-    </View>
-);
+import { PokedexListItem } from "./PokedexListItem";
 
 type Props = NativeStackScreenProps<RootStackParamList, "PokedexScreen">;
 
@@ -35,10 +27,8 @@ export function PokedexScreen({ route, navigation }: Props) {
                     <FlatList
                         data={data?.pages.flatMap((page) => page.results)}
                         renderItem={({ item }) => (
-                            <TouchableHighlight
-                                style={styles.card}
-                                activeOpacity={0.6}
-                                underlayColor="#DDDDDD"
+                            <PokedexListItem
+                                name={item.name}
                                 onPress={() =>
                                     navigation.navigate(
                                         "PokemonDetailsScreen",
@@ -48,9 +38,7 @@ export function PokedexScreen({ route, navigation }: Props) {
                                         },
                                     )
                                 }
-                            >
-                                <Item title={item.name} />
-                            </TouchableHighlight>
+                            />
                         )}
                         onEndReached={() => fetchNextPage()}
                         keyExtractor={(item) => item.url}
@@ -71,9 +59,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
-    item: {
-        padding: 20,
-    },
     card: {
         backgroundColor: "#f9c2ff",
         marginVertical: 8,
@@ -86,9 +71,5 @@ const styles = StyleSheet.create({
             height: 2,
         },
         shadowRadius: 4,
-    },
-    title: {
-        fontSize: 32,
-        textAlign: "center",
     },
 });
